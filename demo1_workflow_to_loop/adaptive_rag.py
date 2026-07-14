@@ -47,11 +47,12 @@ REWRITER_PROMPT = (
 )
 # '허술한' v1 성격의 생성 프롬프트 — 컨텍스트에 근거가 없어도 답하게 방치한다.
 # 데모 3 에서 이 프롬프트가 v2 로 개선되는 것이 관측-개선 루프의 소재가 된다.
+# (프롬프트 규약: 지시문을 앞에, [질문] 섹션을 마지막에 둔다)
 GENERATION_PROMPT = (
-    "[컨텍스트]\n{context}\n[질문]\n{question}\n\n"
-    "위 컨텍스트를 참고해 질문에 한국어로 간결하게 답하라."
+    "다음 컨텍스트를 참고해 질문에 한국어로 간결하게 답하라.\n"
+    "[컨텍스트]\n{context}\n[질문]\n{question}"
 )
-DIRECT_PROMPT = "[질문]\n{question}\n\n검색 없이 바로 한국어로 간결하게 답하라."
+DIRECT_PROMPT = "검색 없이 바로 한국어로 간결하게 답하라.\n[질문]\n{question}"
 
 
 class RagState(TypedDict, total=False):

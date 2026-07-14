@@ -186,7 +186,9 @@ def _rule_answer(role: str, text: str) -> str:
         ctx = _section(text, "컨텍스트") or ""
         title = _first_title(ctx)
         snippet = _first_paragraph(ctx)
-        relevant = len(tokens(q) & tokens(ctx)) >= 1
+        # 질문은 항상 [질문] 섹션의 첫 줄 (프롬프트 규약: 지시문은 앞, [질문]은 마지막)
+        q_line = q.strip().splitlines()[0] if q.strip() else ""
+        relevant = len(tokens(q_line) & tokens(ctx)) >= 1
         honest = ("모른다" in text) or ("근거가 없" in text)  # 프롬프트 v2 지시 감지
         if not ctx.strip():
             return f"(모의 답변) 컨텍스트가 비어 있어 일반 지식으로 답합니다: {q}"
