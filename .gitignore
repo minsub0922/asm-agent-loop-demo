@@ -1,0 +1,13 @@
+# 환경/캐시
+.env
+.venv/
+__pycache__/
+*.pyc
+.cache/
+.ipynb_checkpoints/
+
+# 데모 산출물 (실행 시 생성)
+outputs/
+
+# uv
+# uv.lock 은 커밋한다 (재현성)
