@@ -8,8 +8,9 @@ dependencies = [
     # --- 에이전트 프레임워크 ---
     "langgraph>=1.2,<2",
     "langchain>=1.3,<2",
+    "langchain-google-genai>=4.2,<5",   # Gemini (LLM_PROVIDER=gemini)
     "langchain-openai>=1.3,<2",
-    "langchain-ollama>=1.1,<2",
+    "langchain-ollama>=1.1,<2",         # 로컬 호스팅 (LLM_PROVIDER=ollama)
     "langchain-tavily>=0.2",
     "deepagents>=0.6,<0.7",
     # --- 관측(Observability) ---

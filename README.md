@@ -39,7 +39,9 @@ make lab                   # JupyterLab — 여기서 라이브 데모 진행
 ```
 
 - `LLM_PROVIDER=mock`(기본): **API 키·네트워크 없이** 전 데모가 결정적으로 완주된다.
-  실 모델은 `.env` 에서 `openai`(+키) 또는 `ollama` 로 전환 — 코드는 동일.
+  실 모델은 `.env` 에서 `gemini`(GEMINI_API_KEY 입력) / `openai`(+키) /
+  `ollama`(로컬 호스팅, 키 불필요) 로 전환 — 호출부가 `common/llm.py` 의
+  `get_llm()`/`get_embeddings()` 인터페이스로 모듈화되어 있어 데모 코드는 동일.
 - 노트북 도식(mermaid)은 JupyterLab 4.1+ 에서 렌더링된다 (`make lab` 이면 충족).
   런타임 그래프 그림은 각 노트북의 `show_graph()` 셀이 `outputs/graph_*.png` 로도 저장.
 

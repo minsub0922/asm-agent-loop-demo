@@ -11,7 +11,8 @@ make lab                      # JupyterLab → demo1_workflow_to_loop/demo1.ipyn
 make demo1                    # 실행 결과는 outputs/executed/demo1.ipynb
 ```
 
-- `LLM_PROVIDER=mock`(기본): 키·네트워크 없이 완전 재현. 실 모델은 `.env`에서 `openai|ollama`.
+- `LLM_PROVIDER=mock`(기본): 키·네트워크 없이 완전 재현. 실 모델은 `.env`에서
+  `gemini`(GEMINI_API_KEY) | `openai` | `ollama`(로컬 호스팅, 키 불필요) 중 선택.
 - 그래프 그림: 각 단계의 `show_graph()` 셀이 `outputs/graph_s2~s4.png` 저장
   (mermaid.ink → 실패 시 오프라인 networkx → ASCII 순 폴백).
 
