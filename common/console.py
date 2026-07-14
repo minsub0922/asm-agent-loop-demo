@@ -74,14 +74,15 @@ def _summarize_delta(delta) -> str:
     return "  ".join(parts)
 
 
-def stream_run(app, inputs, config: Optional[dict] = None) -> Tuple[Optional[dict], Optional[tuple]]:
+def stream_run(app, inputs, config: Optional[dict] = None) -> Tuple[Optional[dict], Optional[tuple], list]:
     """그래프를 스트리밍 실행하며 노드 진입을 로그로 보여준다.
 
-    반환: (최종 상태, interrupt 페이로드 튜플 또는 None)
+    반환: (최종 상태, interrupt 페이로드 튜플 또는 None, 방문한 노드 경로 리스트)
     - stream_mode "updates" 로 노드별 변경분을, "values" 로 최종 상태를 받는다.
     - HITL 데모에서 그래프가 interrupt 로 멈추면 두 번째 반환값에 담긴다.
+    - 경로 리스트로 "루프가 실제로 돌았는지"를 검증할 수 있다.
     """
-    final_state, interrupted = None, None
+    final_state, interrupted, path = None, None, []
     for mode, chunk in app.stream(inputs, config=config, stream_mode=["updates", "values"]):
         if mode == "values":
             final_state = chunk
@@ -91,5 +92,6 @@ def stream_run(app, inputs, config: Optional[dict] = None) -> Tuple[Optional[dic
                 interrupted = delta
                 console.print("  [bold red]⏸ interrupt — 사람의 판단을 기다립니다[/]")
                 continue
+            path.append(node)
             node_log(node, _summarize_delta(delta))
-    return final_state, interrupted
+    return final_state, interrupted, path
