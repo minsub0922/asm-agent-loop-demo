@@ -8,7 +8,7 @@ UV ?= uv
 NB = $(UV) run jupyter nbconvert --to notebook --execute --output-dir outputs/executed
 
 .PHONY: help setup lab up down seed verify graphs \
-        demo1 demo2 demo3 demo4-langfuse demo4-phoenix demo4-both demo5
+        demo1 demo2 demo3 demo4 demo4-langfuse demo4-phoenix demo4-both demo5
 
 help: ## 타깃 목록
 	@grep -E '^[a-z0-9-]+:.*##' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "  %-16s %s\n", $$1, $$2}'
@@ -36,6 +36,9 @@ demo3: ## 데모3 관측-개선 루프 (로컬 Langfuse + 키 필요)
 	$(NB) demo3_langfuse_loop/demo3.ipynb
 
 seed: demo3 ## 리허설용 별칭 — 데모3 노트북 실행으로 트레이스/데이터셋/실험 시딩
+
+demo4: ## 데모4 OTel — 현재 env(OTEL_TARGETS 등) 그대로 실행
+	$(NB) demo4_otel_swap/demo4.ipynb
 
 demo4-langfuse: ## 데모4 OTel → Langfuse
 	OTEL_TARGETS=langfuse $(NB) demo4_otel_swap/demo4.ipynb

@@ -75,7 +75,11 @@ def _langfuse_otlp_endpoint_and_headers() -> tuple:
     token = base64.b64encode(
         f"{os.getenv('LANGFUSE_PUBLIC_KEY','')}:{os.getenv('LANGFUSE_SECRET_KEY','')}".encode()
     ).decode()
-    return f"{base}/api/public/otel/v1/traces", {"Authorization": f"Basic {token}"}
+    # x-langfuse-ingestion-version: 4 → 실시간 수집 경로 (공식 문서 권장)
+    return f"{base}/api/public/otel/v1/traces", {
+        "Authorization": f"Basic {token}",
+        "x-langfuse-ingestion-version": "4",
+    }
 
 
 def _phoenix_otlp_endpoint() -> str:
